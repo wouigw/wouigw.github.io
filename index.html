@@ -9,18 +9,22 @@
   <link rel="icon" href="img/avatar.jpeg" type="image/jpeg">
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: rgba(15, 23, 42, 0.65);
-      --card-hover-bg: rgba(22, 34, 61, 0.85);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-      --accent: #38bdf8;
-      --accent-hover: #7dd3fc;
-      --radius: 20px;
-      --radius-sm: 10px;
-      --transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      color-scheme: light dark;
+      --paper: #f7f5f1;
+      --ink: #17130e;
+      --muted: #6e6459;
+      --hairline: #cfc8bb;
+      --rule: #17130e;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #0f0f10;
+        --ink: #ece8e1;
+        --muted: #8d857a;
+        --hairline: #2c2c2e;
+        --rule: #ece8e1;
+      }
     }
 
     * {
@@ -30,538 +34,281 @@
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.14) 0%, transparent 60%),
-        radial-gradient(circle at 15% 35%, rgba(99, 102, 241, 0.09) 0%, transparent 50%),
-        radial-gradient(circle at 85% 65%, rgba(139, 92, 246, 0.09) 0%, transparent 50%);
-      background-attachment: fixed;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", SimSun, serif;
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: 960px;
+    .paper {
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 0 24px;
-      width: 100%;
+      padding: 44px 32px 72px;
     }
 
-    /* 顶部导航 */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      background: rgba(9, 13, 22, 0.75);
-      border-bottom: 1px solid var(--card-border);
-    }
-
-    .nav {
+    .meta-row {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      height: 64px;
+      font-family: "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
-      color: var(--text-main);
-      text-decoration: none;
+    .rule {
+      border: 0;
+      border-top: 1px solid var(--hairline);
     }
 
-    .nav-logo img {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      border: 1px solid var(--card-border);
+    .rule-thick {
+      border-top: 2px solid var(--rule);
+      margin-top: 12px;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.92rem;
-      transition: var(--transition);
-    }
-
-    .nav-links a:hover {
-      color: var(--accent);
-    }
-
-    /* Hero 名片区 */
-    .hero {
-      padding: 65px 0 45px;
+    .masthead {
+      font-size: clamp(64px, 15vw, 172px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: .01em;
       text-align: center;
+      margin: 30px 0 20px;
     }
 
-    .avatar-wrapper {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 22px;
-    }
-
-    .avatar {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(56, 189, 248, 0.45);
-      box-shadow: 0 0 35px rgba(56, 189, 248, 0.25);
-      transition: var(--transition);
-    }
-
-    .avatar:hover {
-      transform: scale(1.05);
-      border-color: var(--accent);
-      box-shadow: 0 0 45px rgba(56, 189, 248, 0.4);
-    }
-
-    .status-badge {
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-      width: 17px;
-      height: 17px;
-      background: #10b981;
-      border: 3px solid var(--bg);
-      border-radius: 50%;
-    }
-
-    .hero-name {
-      font-size: 2.5rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-    }
-
-    .hero-tagline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 1.05rem;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 16px;
-      padding: 5px 16px;
-      border-radius: 9999px;
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56, 189, 248, 0.22);
-    }
-
-    .hero-bio {
-      color: var(--text-muted);
-      max-width: 580px;
-      margin: 0 auto 26px;
-      font-size: 0.98rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 22px;
-      border-radius: 9999px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: var(--transition);
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #090d16;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      box-shadow: 0 0 26px rgba(56, 189, 248, 0.45);
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-main);
-      border: 1px solid var(--card-border);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.22);
-      transform: translateY(-2px);
-    }
-
-    /* 章节标题 */
-    .section-header {
-      margin-bottom: 28px;
+    .kicker {
+      font-family: "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 11px;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: var(--muted);
       text-align: center;
+      margin-bottom: 26px;
     }
 
     .section-title {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .section-subtitle {
-      color: var(--text-dim);
-      font-size: 0.92rem;
-      margin-top: 6px;
-    }
-
-    /* =========================================
-       ⭐ 核心绝对主角：常用 AI 工具
-       ========================================= */
-    .ai-showcase-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
-      margin-bottom: 70px;
-    }
-
-    .ai-card {
-      position: relative;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 30px 26px;
-      transition: var(--transition);
-      overflow: hidden;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .ai-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: transparent;
-      transition: var(--transition);
-    }
-
-    /* 专属品牌色微光与顶条 */
-    .ai-card.deepseek:hover {
-      border-color: rgba(0, 102, 255, 0.5);
-      box-shadow: 0 20px 40px -12px rgba(0, 102, 255, 0.25);
-      transform: translateY(-5px);
-    }
-    .ai-card.deepseek::before { background: linear-gradient(90deg, #0066FF, #38bdf8); }
-
-    .ai-card.antigravity:hover {
-      border-color: rgba(66, 133, 244, 0.5);
-      box-shadow: 0 20px 40px -12px rgba(66, 133, 244, 0.25);
-      transform: translateY(-5px);
-    }
-    .ai-card.antigravity::before { background: linear-gradient(90deg, #4285F4, #34A853); }
-
-    .ai-card.claude:hover {
-      border-color: rgba(217, 119, 6, 0.5);
-      box-shadow: 0 20px 40px -12px rgba(217, 119, 6, 0.25);
-      transform: translateY(-5px);
-    }
-    .ai-card.claude::before { background: linear-gradient(90deg, #D97706, #F59E0B); }
-
-    .ai-card.workbuddy:hover {
-      border-color: rgba(139, 92, 246, 0.5);
-      box-shadow: 0 20px 40px -12px rgba(139, 92, 246, 0.25);
-      transform: translateY(-5px);
-    }
-    .ai-card.workbuddy::before { background: linear-gradient(90deg, #8B5CF6, #EC4899); }
-
-    .ai-card-top {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .ai-icon-box {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      flex-shrink: 0;
-    }
-
-    .ai-card.deepseek .ai-icon-box { color: #38bdf8; background: rgba(0, 102, 255, 0.12); border-color: rgba(0, 102, 255, 0.25); }
-    .ai-card.antigravity .ai-icon-box { color: #4285F4; background: rgba(66, 133, 244, 0.12); border-color: rgba(66, 133, 244, 0.25); }
-    .ai-card.claude .ai-icon-box { color: #F59E0B; background: rgba(217, 119, 6, 0.12); border-color: rgba(217, 119, 6, 0.25); }
-    .ai-card.workbuddy .ai-icon-box { color: #C084FC; background: rgba(139, 92, 246, 0.12); border-color: rgba(139, 92, 246, 0.25); }
-
-    .ai-title-wrap {
-      flex-grow: 1;
-    }
-
-    .ai-name {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--text-main);
-      letter-spacing: -0.01em;
-    }
-
-    .ai-tagline {
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      font-weight: 500;
-      margin-top: 2px;
-    }
-
-    .ai-summary {
-      color: var(--text-muted);
-      font-size: 0.94rem;
-      line-height: 1.6;
-      margin-bottom: 22px;
-    }
-
-    .ai-badges-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .ai-pill {
-      font-size: 0.78rem;
+      align-items: baseline;
+      gap: 14px;
+      font-family: "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 15px;
       font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-muted);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 10px;
+      margin: 64px 0 28px;
     }
 
-    .ai-card.deepseek .ai-pill.active { color: #38bdf8; background: rgba(0, 102, 255, 0.14); border-color: rgba(0, 102, 255, 0.28); }
-    .ai-card.antigravity .ai-pill.active { color: #60a5fa; background: rgba(66, 133, 244, 0.14); border-color: rgba(66, 133, 244, 0.28); }
-    .ai-card.claude .ai-pill.active { color: #fbbf24; background: rgba(217, 119, 6, 0.14); border-color: rgba(217, 119, 6, 0.28); }
-    .ai-card.workbuddy .ai-pill.active { color: #c084fc; background: rgba(139, 92, 246, 0.14); border-color: rgba(139, 92, 246, 0.28); }
+    .num {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .1em;
+      color: var(--muted);
+    }
 
-    /* 页脚 */
-    footer {
-      margin-top: auto;
-      padding: 40px 0 35px;
+    .lead {
+      display: grid;
+      grid-template-columns: 1fr 190px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .standfirst {
+      font-size: 22px;
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .portrait img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 1px solid var(--hairline);
+      filter: grayscale(1) contrast(1.05);
+    }
+
+    .portrait figcaption {
+      margin-top: 10px;
+      font-family: "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 48px;
+      row-gap: 36px;
+    }
+
+    .tool {
+      border-top: 1px solid var(--hairline);
+      padding-top: 18px;
+    }
+
+    .tool h3 {
+      font-size: 21px;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .tool .tag {
+      font-family: "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .tool .desc {
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .notes blockquote {
+      max-width: 720px;
+      margin: 12px auto 0;
       text-align: center;
-      color: var(--text-dim);
-      font-size: 0.88rem;
-      border-top: 1px solid var(--card-border);
+      text-wrap: balance;
+      font-style: italic;
+      font-size: clamp(22px, 3vw, 30px);
+      line-height: 1.5;
     }
 
-    footer a {
-      color: var(--text-muted);
+    .colophon {
+      margin-top: 72px;
+      padding-top: 18px;
+      border-top: 1px solid var(--hairline);
+      text-align: center;
+      font-family: "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .colophon p + p {
+      margin-top: 8px;
+    }
+
+    .colophon a {
+      color: var(--ink);
       text-decoration: none;
-      transition: var(--transition);
+      border-bottom: 1px solid var(--hairline);
     }
 
-    footer a:hover {
-      color: var(--accent);
+    .colophon a:hover {
+      border-bottom-color: var(--ink);
     }
 
-    /* 移动端响应式 */
-    @media (max-width: 768px) {
-      .ai-showcase-grid {
-        grid-template-columns: 1fr;
+    @media (max-width: 720px) {
+      .paper {
+        padding: 32px 20px 56px;
       }
-    }
 
-    @media (max-width: 640px) {
-      .hero-name {
-        font-size: 2rem;
+      .lead {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .portrait {
+        max-width: 180px;
+      }
+
+      .stack-grid {
+        grid-template-columns: 1fr;
+        row-gap: 28px;
+      }
+
+      .section-title {
+        margin-top: 48px;
+      }
+
+      .kicker {
+        font-size: 10px;
+        letter-spacing: .22em;
       }
     }
   </style>
 </head>
 
 <body>
+  <main class="paper">
 
-  <!-- 顶部导航 -->
-  <header>
-    <div class="container nav">
-      <a href="#" class="nav-logo">
-        <img src="img/avatar.jpeg" alt="wouigw">
-        <span>wouigw</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="#ai-stack">常用 AI 工具</a></li>
-        <li><a href="https://github.com/wouigw" target="_blank" rel="noopener">GitHub ↗</a></li>
-      </ul>
-    </div>
-  </header>
+    <header>
+      <div class="meta-row">
+        <span>EST. 2026</span>
+        <span>CHINA</span>
+      </div>
+      <hr class="rule rule-thick">
+      <h1 class="masthead">wouigw</h1>
+      <p class="kicker">Everyday AI Stack &amp; Intelligent Agents</p>
+      <hr class="rule">
+    </header>
 
-  <main class="container">
-    <!-- Hero 名片区 -->
-    <section class="hero">
-      <div class="avatar-wrapper">
-        <img src="img/avatar.jpeg" alt="wouigw 头像" class="avatar">
-        <div class="status-badge" title="Online & AI Tinkering"></div>
-      </div>
-      <h1 class="hero-name">wouigw</h1>
-      <div class="hero-tagline">
-        <span>🤖</span>
-        <span>Everyday AI Stack & Intelligent Agents</span>
-      </div>
-      <p class="hero-bio">
-        专注于大模型前沿应用与智能体协作工作流，构建人机高效协同体验。
-      </p>
-      <div class="hero-actions">
-        <a href="#ai-stack" class="btn btn-primary">探索常用 AI 工具 ↓</a>
-        <a href="https://github.com/wouigw" target="_blank" rel="noopener" class="btn btn-secondary">
-          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
-            <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-          </svg>
-          GitHub 个人主页
-        </a>
+    <section>
+      <h2 class="section-title"><span class="num">01</span> Now</h2>
+      <div class="lead">
+        <div>
+          <p class="standfirst">专注于大模型前沿应用与智能体协作工作流，构建人机高效协同体验。</p>
+          <p>日常研发围绕常用 AI 工具展开，关注模型能力与真实工作流之间的接缝，把重复的部分交给代码和智能体。</p>
+        </div>
+        <figure class="portrait">
+          <img src="img/avatar.jpeg" alt="wouigw 头像">
+          <figcaption>wouigw · 2026</figcaption>
+        </figure>
       </div>
     </section>
 
-    <!-- =========================================
-         ⭐ 核心聚焦：常用 AI 工具 (Everyday AI Stack)
-         ========================================= -->
-    <section id="ai-stack">
-      <div class="section-header">
-        <h2 class="section-title">
-          <span>🤖</span>
-          <span>Everyday AI Stack / 常用 AI 工具</span>
-        </h2>
-        <p class="section-subtitle">驱动日常研发与生产力实践的核心智能体与大模型套件</p>
-      </div>
+    <section>
+      <h2 class="section-title"><span class="num">02</span> Stack</h2>
+      <div class="stack-grid">
 
-      <div class="ai-showcase-grid">
+        <article class="tool">
+          <h3>DeepSeek Harness</h3>
+          <p class="tag">LLM Testing &amp; Evaluation</p>
+          <p class="desc">深度推理基准与自动化调度环境，专为大模型极限能力探索与复杂逻辑评估打造的高效测试套件。</p>
+        </article>
 
-        <!-- DeepSeek Harness -->
-        <div class="ai-card deepseek">
-          <div>
-            <div class="ai-card-top">
-              <div class="ai-icon-box">⚡</div>
-              <div class="ai-title-wrap">
-                <div class="ai-name">DeepSeek Harness</div>
-                <div class="ai-tagline">LLM Testing & Evaluation</div>
-              </div>
-            </div>
-            <p class="ai-summary">
-              深度推理基准与自动化调度环境，专为大模型极限能力探索与复杂逻辑评估打造的高效测试套件。
-            </p>
-          </div>
-          <div class="ai-badges-row">
-            <span class="ai-pill active">DeepSeek-V3 / R1</span>
-            <span class="ai-pill">自动化评测</span>
-            <span class="ai-pill">推理调度</span>
-          </div>
-        </div>
+        <article class="tool">
+          <h3>Google Antigravity</h3>
+          <p class="tag">Autonomous Agent System</p>
+          <p class="desc">Google DeepMind 新一代自主智能体架构，端到端赋能复杂代码演进、全自动规划与结对编程工程化。</p>
+        </article>
 
-        <!-- Google Antigravity -->
-        <div class="ai-card antigravity">
-          <div>
-            <div class="ai-card-top">
-              <div class="ai-icon-box">🌐</div>
-              <div class="ai-title-wrap">
-                <div class="ai-name">Google Antigravity</div>
-                <div class="ai-tagline">Autonomous Agent System</div>
-              </div>
-            </div>
-            <p class="ai-summary">
-              Google DeepMind 新一代自主智能体架构，端到端赋能复杂代码演进、全自动规划与结对编程工程化。
-            </p>
-          </div>
-          <div class="ai-badges-row">
-            <span class="ai-pill active">Google DeepMind</span>
-            <span class="ai-pill">自主智能体</span>
-            <span class="ai-pill">全流程编排</span>
-          </div>
-        </div>
+        <article class="tool">
+          <h3>Claude Code</h3>
+          <p class="tag">Terminal Agentic Coding</p>
+          <p class="desc">Anthropic 终端级高智能开发 Agent，原生打通 CLI 与 Shell 环境，擅长代码库级深度重构与自主落地。</p>
+        </article>
 
-        <!-- Claude Code -->
-        <div class="ai-card claude">
-          <div>
-            <div class="ai-card-top">
-              <div class="ai-icon-box">💻</div>
-              <div class="ai-title-wrap">
-                <div class="ai-name">Claude Code</div>
-                <div class="ai-tagline">Terminal Agentic Coding</div>
-              </div>
-            </div>
-            <p class="ai-summary">
-              Anthropic 终端级高智能开发 Agent，原生打通 CLI 与 Shell 环境，擅长代码库级深度重构与自主落地。
-            </p>
-          </div>
-          <div class="ai-badges-row">
-            <span class="ai-pill active">Anthropic</span>
-            <span class="ai-pill">终端沉浸式</span>
-            <span class="ai-pill">架构级重构</span>
-          </div>
-        </div>
-
-        <!-- WorkBuddy -->
-        <div class="ai-card workbuddy">
-          <div>
-            <div class="ai-card-top">
-              <div class="ai-icon-box">✨</div>
-              <div class="ai-title-wrap">
-                <div class="ai-name">WorkBuddy</div>
-                <div class="ai-tagline">Desktop Multi-Agent Workspace</div>
-              </div>
-            </div>
-            <p class="ai-summary">
-              桌面级多智能体协同办公与智能自动化工作流助手，无缝链接日常任务，大幅跃升个人综合产出效能。
-            </p>
-          </div>
-          <div class="ai-badges-row">
-            <span class="ai-pill active">Desktop AI</span>
-            <span class="ai-pill">多智能体协同</span>
-            <span class="ai-pill">工作流集成</span>
-          </div>
-        </div>
+        <article class="tool">
+          <h3>WorkBuddy</h3>
+          <p class="tag">Desktop Multi-Agent Workspace</p>
+          <p class="desc">桌面级多智能体协同办公与智能自动化工作流助手，无缝链接日常任务，大幅跃升个人综合产出效能。</p>
+        </article>
 
       </div>
     </section>
+
+    <section class="notes">
+      <h2 class="section-title"><span class="num">03</span> Notes</h2>
+      <blockquote>Stay hungry, stay curious — and let code solve the repetitive.</blockquote>
+    </section>
+
+    <footer class="colophon">
+      <p>wouigw · China · 2026</p>
+      <p><a href="https://github.com/wouigw">GitHub ↗</a> · Powered by Everyday AI &amp; GitHub Pages</p>
+    </footer>
+
   </main>
-
-  <!-- 页脚 -->
-  <footer>
-    <div class="container">
-      <p>✨ <i>"Stay hungry, stay curious, and let code solve the repetitive."</i> ✨</p>
-      <p style="margin-top: 8px;">
-        © 2026 <a href="https://github.com/wouigw">wouigw</a> · Powered by Everyday AI & GitHub Pages
-      </p>
-    </div>
-  </footer>
-
 </body>
 
 </html>
