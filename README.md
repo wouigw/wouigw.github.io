@@ -1,6 +1,6 @@
-# islanddddddd.github.io
+# wouigw.github.io
 
-> 🌐 [islanddddddd.github.io](https://islanddddddd.github.io) - islanddddddd 的个人主页 / 站点
+> 🌐 [wouigw.github.io](https://wouigw.github.io) - wouigw 的个人主页 / 站点
 
 ## 🛠️ 技术与特性
 - 纯净原生 HTML5 + 现代化 CSS 变量与 Glassmorphism 设计
